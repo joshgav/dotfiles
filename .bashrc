@@ -17,7 +17,11 @@ if [ -x /usr/bin/dircolors ]; then
     alias grep='grep --color=auto'
 fi
 
-alias ll='ls -alhF --group-directories-first'
+if [ `uname` == 'Darwin' ]; then
+  alias ll='ls -alhF'
+else
+  alias ll='ls -alhF --group-directories-first'
+fi
 
 # add this line to ~/.vimrc to activate:
 # TODO: add to scripts/init_vim.sh
