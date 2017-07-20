@@ -2,26 +2,21 @@
 
 git_bundles = [ 
   "https://github.com/pangloss/vim-javascript.git",
-  "https://github.com/joshgav/nerdtree.git",
-  "https://github.com/jistr/vim-nerdtree-tabs.git",
-  "https://github.com/tpope/vim-fugitive.git",
-  "https://github.com/tpope/vim-git.git",
+  "https://github.com/scrooloose/nerdtree.git",
   "https://github.com/tpope/vim-markdown.git",
   "https://github.com/tpope/vim-repeat.git",
   "https://github.com/tpope/vim-surround.git",
   "https://github.com/tpope/vim-vividchalk.git",
-  "https://github.com/vim-scripts/Gist.vim.git",
 ]
 
 vim_org_scripts = [
   ["IndexedSearch", "7062",  "plugin"],
-  ["jquery",        "12107", "syntax"],
 ]
 
 require 'fileutils'
 require 'open-uri'
 
-bundles_dir = File.join(File.dirname(__FILE__), "bundle")
+bundles_dir = File.join("#{Dir.home}", ".vim", "bundle")
 
 FileUtils.cd(bundles_dir)
 
