@@ -4,7 +4,7 @@ set nocompatible
 
 set statusline=\ %<%F\ %y\ %m%r%h%{HasPaste()}%=line:%l\/%L,col:%c
 set laststatus=2
-set showbreak=>\
+set showbreak=>\ 
 set showmode
 set number
 
