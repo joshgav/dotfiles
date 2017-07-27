@@ -18,9 +18,9 @@ if [ -x /usr/bin/dircolors ]; then
 fi
 
 if [ `uname` == 'Darwin' ]; then
-  alias ll='ls -alhF'
+  alias ll='ls -AlhF'
 else
-  alias ll='ls -alhF --group-directories-first'
+  alias ll='ls -AlhF --group-directories-first'
 fi
 
 # add this line to ~/.vimrc to activate:
@@ -32,3 +32,8 @@ export SHARED_VIMRC=${SCRIPT_DIR}/.vimrc
 git config --global alias.st 'status -sb'
 git config --global user.email 'joshgavant@gmail.com'
 git config --global user.name 'Josh Gavant'
+
+if [ -f "$HOME/src/nvs/nvs.sh" ]; then
+  # github.com/jasongin/nvs
+  source ~/src/nvs/nvs.sh
+fi
