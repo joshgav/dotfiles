@@ -37,3 +37,7 @@ if [ -f "$HOME/src/nvs/nvs.sh" ]; then
   # github.com/jasongin/nvs
   source ~/src/nvs/nvs.sh
 fi
+
+# XDG_RUNTIME_DIR == %t in systemd unit files
+export SSH_AUTH_SOCK=${XDG_RUNTIME_DIR}/ssh-agent.sock
+
