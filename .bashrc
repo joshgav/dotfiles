@@ -1,4 +1,4 @@
-SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+SCRIPT_DIR=$(cd $(dirname "${BASH_SOURCE[0]}") && pwd)
 
 export EDITOR=vi
 set -o vi
@@ -41,3 +41,5 @@ fi
 # XDG_RUNTIME_DIR == %t in systemd unit files
 export SSH_AUTH_SOCK=${XDG_RUNTIME_DIR}/ssh-agent.sock
 
+# start SSH agent
+eval $(ssh-agent -s) > /dev/null

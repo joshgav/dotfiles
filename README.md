@@ -1,7 +1,7 @@
 ## Add to local ~/.bashrc:
 
 ```
-if [ -f $HOME/src/dotfiles/.bashrc ]; then . $HOME/src/dotfiles/.bashrc; fi
+if [[ -f $HOME/src/dotfiles/.bashrc ]]; then source $HOME/src/dotfiles/.bashrc; fi
 ```
 
 ## Add to local ~/.vimrc:
