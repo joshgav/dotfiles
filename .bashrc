@@ -1,6 +1,8 @@
 SCRIPT_DIR=$(cd $(dirname "${BASH_SOURCE[0]}") && pwd)
 
 export EDITOR=vi
+# to handle color escape codes
+export LESS="--raw-control-chars"
 set -o vi
 /bin/bash ${SCRIPT_DIR}/scripts/init_vim.sh # --no-update
 
@@ -33,9 +35,18 @@ git config --global alias.st 'status -sb'
 git config --global user.email 'joshgavant@gmail.com'
 git config --global user.name 'Josh Gavant'
 
-if [ -f "$HOME/src/nvs/nvs.sh" ]; then
-  # github.com/jasongin/nvs
-  source ~/src/nvs/nvs.sh
+# nvm
+export NVM_DIR="${HOME}/.nvm"
+[[ -f "${NVM_DIR}/nvm.sh" ]] && source ${NVM_DIR}/nvm.sh
+[[ -f "${NVM_DIR}/bash_completion" ]] && source ${NVM_DIR}/bash_completion
+PATH=${HOME}/.yarn/bin:${PATH}
+
+# go
+if [[ -x "/usr/local/go/bin/go" ]]; then
+  GOROOT=/usr/local/go
+  GOBIN=${GOROOT}/bin
+  GOPATH=${HOME}/go
+  PATH=${GOBIN}:${GOPATH}/bin:${PATH}
 fi
 
 # XDG_RUNTIME_DIR == %t in systemd unit files
