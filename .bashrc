@@ -1,5 +1,6 @@
 SCRIPT_DIR=$(cd $(dirname "${BASH_SOURCE[0]}") && pwd)
 
+export XDG_CONFIG_HOME=${HOME}/.config
 export EDITOR=vi
 # to handle color escape codes
 export LESS="--raw-control-chars"
@@ -48,6 +49,9 @@ if [[ -x "/usr/local/go/bin/go" ]]; then
   GOPATH=${HOME}/go
   PATH=${GOBIN}:${GOPATH}/bin:${PATH}
 fi
+
+# python
+PATH=${HOME}/.local/bin:${PATH}
 
 # XDG_RUNTIME_DIR == %t in systemd unit files
 export SSH_AUTH_SOCK=${XDG_RUNTIME_DIR}/ssh-agent.sock
