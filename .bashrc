@@ -1,9 +1,11 @@
 SCRIPT_DIR=$(cd $(dirname "${BASH_SOURCE[0]}") && pwd)
 
 export XDG_CONFIG_HOME=${HOME}/.config
+export PS1='\u \w \$ '
+export LESS=eFRX
+
 export EDITOR=vi
 # to handle color escape codes
-export LESS="--raw-control-chars"
 set -o vi
 /bin/bash ${SCRIPT_DIR}/scripts/init_vim.sh # --no-update
 
@@ -25,6 +27,9 @@ if [ `uname` == 'Darwin' ]; then
 else
   alias ll='ls -AlhF --group-directories-first'
 fi
+
+# PATH
+PATH=${HOME}/.local/bin:${PATH}
 
 # add this line to ~/.vimrc to activate:
 # TODO: add to scripts/init_vim.sh
@@ -58,3 +63,12 @@ export SSH_AUTH_SOCK=${XDG_RUNTIME_DIR}/ssh-agent.sock
 
 # start SSH agent
 eval $(ssh-agent -s) > /dev/null
+
+# VS Code
+function code() {
+  install_path="${HOME}"
+  pkg_path="Applications/Visual Studio Code - Insiders.app"
+  bin_path="Contents/Resources/app/bin/code"
+  path=$(printf "%s/%s/%s" "${install_path}" "${pkg_path}" "${bin_path}")
+  "${path}" "$@"
+}

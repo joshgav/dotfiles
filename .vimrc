@@ -3,6 +3,7 @@
 set nocompatible
 
 set statusline=\ %<%F\ %y\ %m%r%h%{HasPaste()}%=line:%l\/%L,col:%c
+set listchars=tab:→\ ,space:·,nbsp:␣,trail:•,eol:¶,precedes:«,extends:»
 set laststatus=2
 set showbreak=>\ 
 set showmode
