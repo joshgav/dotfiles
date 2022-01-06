@@ -1,16 +1,15 @@
 #! /usr/bin/env bash
 
-dotfiles_dir=$(cd $(dirname "${BASH_SOURCE[0]}") && pwd)
-source ${dotfiles_dir}/scripts/vscode.sh
+this_dir=$(cd $(dirname "${BASH_SOURCE[0]}") && pwd)
+source ${this_dir}/scripts/vscode.sh
 
 export XDG_CONFIG_HOME=${HOME}/.config
 export PS1='\u \w \$ '
 export LESS=eFRX
 
 export EDITOR=vi
-# to handle color escape codes
 set -o vi
-${dotfiles_dir}/scripts/init_vim.sh # --no-update
+${this_dir}/scripts/init_vim.sh # --update
 
 function clear () {
     if [ -n ${TMUX+x} ]; then
@@ -19,51 +18,49 @@ function clear () {
     /usr/bin/clear
 }
 
-# if [ -x /usr/bin/dircolors ]; then
-#     test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
-#     alias ls='ls --color=auto'
-#     alias grep='grep --color=auto'
-# fi
-
 if [ `uname` == 'Darwin' ]; then
   alias ll='ls -AlhF'
 else
   alias ll='ls -AlhF --group-directories-first'
 fi
 
-# PATH
-PATH=${HOME}/.local/bin:/usr/local/sbin:${PATH}
+PATH=${HOME}/.local/bin:${PATH}
 
-# add this line to ~/.vimrc to activate:
-# TODO: add to scripts/init_vim.sh
-# `if !empty($SHARED_VIMRC) | source $SHARED_VIMRC | endif`
-export SHARED_VIMRC=${dotfiles_dir}/.vimrc
+# vi
+export SHARED_VIMRC=${this_dir}/.vimrc
+echo 'if !empty($SHARED_VIMRC) | source $SHARED_VIMRC | endif' > ~/.vimrc
 
-# TODO: move to separate script
+# git
 git config --global alias.st 'status -sb'
 git config --global user.email 'joshgavant@gmail.com'
 git config --global user.name 'Josh Gavant'
 
-# nvm
+# node.js/nvm
 export NVM_DIR="${HOME}/.nvm"
-[[ -f "${NVM_DIR}/nvm.sh" ]] && source ${NVM_DIR}/nvm.sh
-[[ -f "${NVM_DIR}/bash_completion" ]] && source ${NVM_DIR}/bash_completion
-PATH=${HOME}/.yarn/bin:${PATH}
+if [[ -e "${NVM_DIR}/nvm.sh" ]]; then
+  source ${NVM_DIR}/nvm.sh
+  source ${NVM_DIR}/bash_completion
+  PATH=${HOME}/.yarn/bin:${PATH}
+fi
 
 # go
 if [[ -x "/usr/local/go/bin/go" ]]; then
-    GOROOT=/usr/local/go
-    GOBIN=${GOROOT}/bin
-    GOPATH=${HOME}/go
-    PATH=${GOBIN}:${GOPATH}/bin:${PATH}
+  GOROOT=/usr/local/go
+  GOBIN=${GOROOT}/bin
+  GOPATH=${HOME}/go
+  PATH=${GOBIN}:${GOPATH}/bin:${PATH}
 fi
 
-# python
-PATH=${HOME}/.local/bin:${PATH}
+# krew
+if [[ -d ${HOME}/.krew ]]; then
+  PATH=${HOME}/.krew/bin:${PATH}
+fi
 
 # XDG_RUNTIME_DIR == %t in systemd unit files
 export SSH_AUTH_SOCK=${XDG_RUNTIME_DIR}/ssh-agent.sock
 
 # start SSH agent
 eval $(ssh-agent -s) > /dev/null
+
+echo "source-file ${this_dir}/.tmux.conf" > ~/.tmux.conf
 
