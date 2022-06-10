@@ -11,7 +11,7 @@ git_bundles = [
 ]
 
 vim_org_scripts = [
-  ["IndexedSearch", "7062",  "plugin"],
+  ["IndexedSearch", "7062", "plugin"],
 ]
 
 require 'fileutils'
@@ -36,7 +36,7 @@ vim_org_scripts.each do |name, script_id, script_type|
   local_file = File.join(name, script_type, "#{name}.vim")
   FileUtils.mkdir_p(File.dirname(local_file))
   File.open(local_file, "w") do |file|
-    file << open("https://www.vim.org/scripts/download_script.php?src_id=#{script_id}").read
+    file << URI.open("https://www.vim.org/scripts/download_script.php?src_id=#{script_id}").read
   end
 end
 
