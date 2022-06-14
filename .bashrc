@@ -1,10 +1,13 @@
 #! /usr/bin/env bash
 
 this_dir=$(cd $(dirname "${BASH_SOURCE[0]}") && pwd)
-source ${this_dir}/scripts/vscode.sh
+sys_uname=$(uname)
+if [[ "${sys_uname}" != 'Linux' ]]; then
+	source ${this_dir}/scripts/vscode.sh
+fi
 
 export XDG_CONFIG_HOME=${HOME}/.config
-export PS1='\u \w \$ '
+export PS1='\u@\h \w \$ '
 export LESS=eFRX
 
 export EDITOR=vi
@@ -64,3 +67,10 @@ eval $(ssh-agent -s) > /dev/null
 
 echo "source-file ${this_dir}/.tmux.conf" > ~/.tmux.conf
 
+if [[ -e "${HOME}/.krew/bin" ]]; then
+    PATH=${HOME}/.krew/bin:${PATH}
+fi
+
+if type -p aws_completer &> /dev/null; then
+    complete -C aws_completer aws
+fi
