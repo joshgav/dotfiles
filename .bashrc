@@ -59,6 +59,10 @@ if [[ -d ${HOME}/.krew ]]; then
   PATH=${HOME}/.krew/bin:${PATH}
 fi
 
+if [[ -x "/opt/idea/bin/idea.sh" ]]; then
+  PATH="/opt/idea/bin:${PATH}"
+fi
+
 # XDG_RUNTIME_DIR == %t in systemd unit files
 export SSH_AUTH_SOCK=${XDG_RUNTIME_DIR}/ssh-agent.sock
 
@@ -74,3 +78,11 @@ fi
 if type -p aws_completer &> /dev/null; then
     complete -C aws_completer aws
 fi
+
+if type -p az &> /dev/null; then source az.completion.sh; fi
+if [ -f '/usr/local/google-cloud-sdk/path.bash.inc' ]; then . '/usr/local/google-cloud-sdk/path.bash.inc'; fi
+if [ -f '/usr/local/google-cloud-sdk/completion.bash.inc' ]; then . '/usr/local/google-cloud-sdk/completion.bash.inc'; fi
+
+test -d ~/.linuxbrew && eval "$(~/.linuxbrew/bin/brew shellenv)"
+test -d /home/linuxbrew/.linuxbrew && eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+
